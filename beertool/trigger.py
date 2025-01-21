@@ -36,6 +36,7 @@ class 功能包:
 
         self.机器人: MessageHandler = 机器人
         self.括号: list = 括号
+        self.QQ = 机器人.id
 
     async def 回调(self, 文本: str = ""):
         """机器人回调"""

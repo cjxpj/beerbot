@@ -70,8 +70,6 @@ class MessageHandler:
 
     async def at_msg(self, msg):
         _log.info(f"「{self.消息类型}」[{self.id}]：{msg}")
-        # id = db_QQ_bind_user.读(self.id, playerConfig.注册数量)
-
         if (stopMsg := await 消息库.run(self, msg)) is not None:
             if stopMsg != True:
                 print(stopMsg)

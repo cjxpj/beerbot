@@ -249,7 +249,7 @@ async def chat():
                     }).replace(/\[img=(.*?)\]/g, (match, p1) => {
                         // 假设 p1 是 base64 编码的图片数据
                         return `<img src="data:image/png;base64,${p1}" alt="Image" style="max-width: 100%; height: auto;">`;
-                    }).replace(/\n/g, '<br>')}</div>`;
+                    }).replace(/\\n/g, '<br>')}</div>`;
                     messagesContainer.appendChild(botMessage);
 
                     // 为新创建的按钮添加点击事件监听器
