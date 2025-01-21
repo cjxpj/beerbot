@@ -10,8 +10,6 @@
 
 import beertool.mybot as mybot
 
-if __name__ == "__main__":
-    mybot.启动()
 
 from beertool.trigger import *
 
@@ -43,4 +41,9 @@ async def 账号(pj: 功能包):
 
 @t("菜单")
 async def 菜单(pj: 功能包):
+    print("触发")
     await pj.发送(await pj.回调("测试 999"))
+
+
+if __name__ == "__main__":
+    mybot.启动()
