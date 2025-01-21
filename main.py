@@ -20,7 +20,6 @@ from beertool.trigger import *
 async def 测试(pj: 功能包):
     return "ok" + pj.括号[1]
 
-
 @t("读写测试")
 async def 读写测试(pj: 功能包):
     await pj.发送(pj.读("蔡徐坤文件", "键", "b"))
@@ -38,6 +37,9 @@ async def 正则测试(pj: 功能包):
     await pj.发送(pj.正则("a1212b", "[0-9]+"))
     await pj.发送(pj.正则("1212", "[0-9]+"))
 
+@t("账号")
+async def 账号(pj: 功能包):
+    await pj.发送(pj.QQ)
 
 @t("菜单")
 async def 菜单(pj: 功能包):
