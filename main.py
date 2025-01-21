@@ -7,12 +7,27 @@
 @Author  ：cjxpj
 @Date    ：2025-1-21 14:26:39
 '''
-
 import beertool.mybot as mybot
-
-
 from beertool.trigger import *
 
+@t("*")
+async def 任意(pj: 功能包):
+    pj.变量["a"] = "内容"
+
+@t("读取变量")
+async def 读取变量(pj: 功能包):
+    await pj.发送(pj.变量["a"])
+
+
+@t("重复")
+async def 重复(pj: 功能包):
+    await pj.发送("a")
+    # 拦截
+    return True
+
+@t("重复")
+async def 重复(pj: 功能包):
+    await pj.发送("b")
 
 @t("[内部]测试 ([0-9]+)")
 async def 测试(pj: 功能包):
