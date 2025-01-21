@@ -30,6 +30,7 @@ async def 异步循环(i: int, func, *args, **kwargs):
     await asyncio.gather(*tasks)
 
 
+
 class 功能包:
     def __init__(self, 机器人, 括号):
         from beertool.msgList import MessageHandler
@@ -37,6 +38,14 @@ class 功能包:
         self.机器人: MessageHandler = 机器人
         self.括号: list = 括号
         self.QQ = 机器人.id
+
+    @property
+    def 变量(self):
+        return self.机器人.变量
+
+    @变量.setter
+    def 变量(self, value):
+        self.机器人.变量 = value
 
     async def 回调(self, 文本: str = ""):
         """机器人回调"""
@@ -169,7 +178,6 @@ class MsgManager:
             if result:
                 return result
         return None
-
 
 消息库 = MsgManager()
 t = 消息库.msg

@@ -37,6 +37,7 @@ class MessageHandler:
         self.自己 = None
         self.msg = ""
         self.id = "1"
+        self.变量 = {}
 
     async def 发送(self, msg_template: str = "", img: str = ""):
         """发送消息"""
