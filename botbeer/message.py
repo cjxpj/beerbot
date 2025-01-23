@@ -105,21 +105,25 @@ class Message:
         self.send_msg_id += 1
         msg = msg_template.replace("[消息]", str(self.send_msg_id))
         if img != "":
-            if img.startswith("http://") or img.startswith("https://"):
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(img) as response:
-                        if response.status == 200:
-                            img_bytes = await response.read()
-                        else:
-                            raise Exception("Failed to fetch image from URL")
+            if isinstance(img, bytes):
+                img_bytes = img
             else:
-                with open(img, "rb") as img:
-                    img_bytes = img.read()
-            return await self.reply(
-                content=msg, file_image=img_bytes
-            )
+                if img.startswith("http://") or img.startswith("https://"):
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(img) as response:
+                            if response.status == 200:
+                                img_bytes = await response.read()
+                            else:
+                                raise Exception("Failed to fetch image from URL")
+                else:
+                    with open(img, "rb") as img:
+                        img_bytes = img.read()
+
+            return await self.reply(content=msg, file_image=img_bytes)
         else:
-            return await self.reply(content=msg, message_reference=Reference(message_id=self.id))
+            return await self.reply(
+                content=msg, message_reference=Reference(message_id=self.id)
+            )
 
 
 class DirectMessage:
@@ -213,27 +217,31 @@ class DirectMessage:
         return await self._api.post_dms(
             guild_id=self.guild_id, msg_id=self.id, **kwargs
         )
-    
+
     # 回复消息通用接口
     async def r(self, msg_template="", img=""):
         self.send_msg_id += 1
         msg = msg_template.replace("[消息]", str(self.send_msg_id))
         if img != "":
-            if img.startswith("http://") or img.startswith("https://"):
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(img) as response:
-                        if response.status == 200:
-                            img_bytes = await response.read()
-                        else:
-                            raise Exception("Failed to fetch image from URL")
+            if isinstance(img, bytes):
+                img_bytes = img
             else:
-                with open(img, "rb") as img:
-                    img_bytes = img.read()
-            return await self.reply(
-                content=msg, file_image=img_bytes
-            )
+                if img.startswith("http://") or img.startswith("https://"):
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(img) as response:
+                            if response.status == 200:
+                                img_bytes = await response.read()
+                            else:
+                                raise Exception("Failed to fetch image from URL")
+                else:
+                    with open(img, "rb") as img:
+                        img_bytes = img.read()
+
+            return await self.reply(content=msg, file_image=img_bytes)
         else:
-            return await self.reply(content=msg, message_reference=Reference(message_id=self.id))
+            return await self.reply(
+                content=msg, message_reference=Reference(message_id=self.id)
+            )
 
 
 class MessageAudit:
@@ -361,21 +369,24 @@ class GroupMessage(BaseMessage):
         self.send_msg_id += 1
         msg = msg_template.replace("[消息]", str(self.send_msg_id))
         if img != "":
-            if img.startswith("http://") or img.startswith("https://"):
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(img) as response:
-                        if response.status == 200:
-                            image_data = await response.read()
-                            base64_encoded_image = base64.b64encode(image_data).decode(
-                                "utf-8"
-                            )
-                        else:
-                            raise Exception("Failed to fetch image from URL")
+            if isinstance(img, bytes):
+                base64_encoded_image = base64.b64encode(img).decode("utf-8")
             else:
-                with open(img, "rb") as image_file:
-                    base64_encoded_image = base64.b64encode(image_file.read()).decode(
-                        "utf-8"
-                    )
+                if img.startswith("http://") or img.startswith("https://"):
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(img) as response:
+                            if response.status == 200:
+                                image_data = await response.read()
+                                base64_encoded_image = base64.b64encode(
+                                    image_data
+                                ).decode("utf-8")
+                            else:
+                                raise Exception("Failed to fetch image from URL")
+                else:
+                    with open(img, "rb") as image_file:
+                        base64_encoded_image = base64.b64encode(
+                            image_file.read()
+                        ).decode("utf-8")
 
             uploadMedia = await self._api.post_group_file(
                 group_openid=self.group_openid,
@@ -425,21 +436,24 @@ class C2CMessage(BaseMessage):
         self.send_msg_id += 1
         msg = msg_template.replace("[消息]", str(self.send_msg_id))
         if img != "":
-            if img.startswith("http://") or img.startswith("https://"):
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(img) as response:
-                        if response.status == 200:
-                            image_data = await response.read()
-                            base64_encoded_image = base64.b64encode(image_data).decode(
-                                "utf-8"
-                            )
-                        else:
-                            raise Exception("Failed to fetch image from URL")
+            if isinstance(img, bytes):
+                base64_encoded_image = base64.b64encode(img).decode("utf-8")
             else:
-                with open(img, "rb") as image_file:
-                    base64_encoded_image = base64.b64encode(image_file.read()).decode(
-                        "utf-8"
-                    )
+                if img.startswith("http://") or img.startswith("https://"):
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(img) as response:
+                            if response.status == 200:
+                                image_data = await response.read()
+                                base64_encoded_image = base64.b64encode(
+                                    image_data
+                                ).decode("utf-8")
+                            else:
+                                raise Exception("Failed to fetch image from URL")
+                else:
+                    with open(img, "rb") as image_file:
+                        base64_encoded_image = base64.b64encode(
+                            image_file.read()
+                        ).decode("utf-8")
 
             uploadMedia = await self._api.post_c2c_file(
                 openid=self.author.user_openid,
