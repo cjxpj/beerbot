@@ -5,6 +5,9 @@
 另外单独支持调试：网页  
 支持云湖机器人：群聊
 
+![image](https://github.com/user-attachments/assets/6e066288-3a65-40e3-a194-bacdeb57d910)
+
+
 # 声明
 函数名字不要重复，随便写就好。  
 如果觉得好用，记得点个小星星~！  
